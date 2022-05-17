@@ -7,7 +7,7 @@
 #rm *.o
 #rm *.out
 
-#this is a test
+#this is test number 3
 
 
 echo "Assemble asm file"
