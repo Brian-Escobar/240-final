@@ -7,9 +7,6 @@
 #rm *.o
 #rm *.out
 
-#this is test number 3
-
-
 echo "Assemble asm file"
 #compiles the assembely code
 nasm -f elf64 -l electric.lis -o electric.o electric.asm
