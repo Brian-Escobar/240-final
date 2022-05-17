@@ -13,33 +13,37 @@ extern stdin
 extern strlen
 extern atof
 
-global electric
+global resistance
 
 segment .data
 
-time db "The time on the clock is now 384819342 tics.", 10,0
+time db "The start time on the clock is now %lu tics.", 10,0
 
-turn db "We turn your night into day.", 10, 0
+text db "We will manage all your circuits.", 10, 0
 
-emf db "Please enter the emf value (volts): ",0
+entr db "Please enter the resistance pf the first subcircuit: ",0
 
-emf_input db "%lf",0
+first_resistance_input db "%lf",0
 
-resistance db "Please enter the resistance (ohms): ",0
+resistance_text db "Please enter the resistance pf the secpmd subcircuit: ",0
 
-resistance_input db "%lf",0
+second_resistance_input db "%lf",0
 
-computed db "The computed current is %.4lf amps.",10,0
+computed db "The computed total resistance is %.4lf ohms.",10,0
 
-electric_power db "The Electric power will send the current to the caller.",10,0
+total_resistance db "The Electric Resistance will send the Total Resistanceto the caller.",10,0
 
-endtime db "The end time on the clock is now 384819342 tics.", 10,0
+end_time db "The end time on the clock is now %lu tics.", 10,0
+
+total_time db "The total time for this computation was %lu tics", 10,0
+
+one dq 1.0
 
 segment .bss
 
 
 segment .text
-electric:
+resistance:
 
 push    rbp
 
@@ -59,61 +63,94 @@ push    r14
 push    r15
 pushf
 
-;================================Time db========================================
+
+
+
+
+;================================print out starting tics========================================
 push qword 0
+cpuid
+rdtsc
+
+shl rdx, 32
+add rax, rdx
+mov r15, rax
+
 mov rax, 0
 mov rdi, time
+mov rsi, r15
 call printf
 pop rax
 
-;================================Turn db========================================
+
+
+;================================time ========================================
+;push qword 0
+;mov rax, 0
+;mov rdi, time
+;call printf
+;pop rax
+
+
+
+
+;================================text ========================================
 
 push qword 0
 mov rax, 0
-mov rdi, turn
+mov rdi, text
 call printf
 pop rax
 
-;================================Emf db=========================================
+;================================entr =========================================
 
 push qword 0
 mov rax, 0
-mov rdi, emf
+mov rdi, entr
 call printf
 pop rax
 
-;=================================emf_input====================================
+;=================================first_resistance_input====================================
 push qword 0
 push qword 0
 mov rax, 0
-mov rdi, emf_input
+mov rdi, first_resistance_input
 mov rsi, rsp
 call scanf
 movsd xmm15, [rsp]
 pop rax
 pop rax
-;=================================resistance====================================
+;=================================resistance_text====================================
 
 push qword 0
 mov rax, 0
-mov rdi, resistance
+mov rdi, resistance_text
 call printf
 pop rax
 
-;================================resistance_input==============================
+;================================second_resistance_input==============================
 push qword 0
 push qword 0
 mov rax, 0
-mov rdi, resistance_input
+mov rdi, second_resistance_input
 mov rsi, rsp
 call scanf
 movsd xmm14, [rsp]
 pop rax
 pop rax
 
-;================================MATH===========================================
-divsd xmm15,xmm14         ; EMF / resistance
-movsd xmm13, xmm15        ; store value from xmm15 into xmm13
+;================================ calculations===========================================
+;place 1.0 into xmm registers
+movsd xmm12, [one]
+movsd xmm11, [one]
+
+;divide both resistances by 1
+divsd xmm12, xmm15
+divsd xmm11, xmm14
+
+; add the two values
+addsd xmm12, xmm11
+movsd xmm13, xmm12
 
 ;===============================computed========================================
 push qword 0
@@ -125,19 +162,40 @@ call printf
 pop rax
 pop rax
 
-;==============================electric power db================================
+
+
+;===============================displaying end_time ========================================
+push qword 0
+cpuid
+rdtsc
+
+shl rdx, 32
+add rax, rdx
+mov r14, rax
+pop rax
+
+
 push qword 0
 mov rax, 0
-mov rdi, electric_power
+mov rdi, end_time
+mov rsi, r14
 call printf
 pop rax
 
-;==============================endtime=========================================
+;===============================displaying total_time ========================================
 push qword 0
 mov rax, 0
-mov rdi, endtime
+mov rdi, total_time
+sub r14, r15
+mov rsi, r14
 call printf
 pop rax
+
+
+
+
+
+
 
 movsd xmm0, xmm13
 ;===================Restore the original values to the GPRs=====================

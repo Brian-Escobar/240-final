@@ -9,16 +9,16 @@
 #include <iomanip>
 #include <iostream>
 
-extern "C" double electric();
+extern "C" double resistance();
 
 int main() {
-  double electric_ = 0.0;
+  double resistance_ = 0.0;
 
-  printf("Welcome to the Electric Power Program by Brian Escobar. \n");
+  printf("Welcome to the Electric Resistance Program by Brian Escobar. \n");
 
-  electric_ = electric();
+  resistance_ = resistance();
 
-  printf("The caller recieved this number %.4lf and will keep it. \n", electric_);
+  printf("The caller recieved this number %.4lf and will keep it. \n", resistance_);
 
   printf("A zero will be sent to the OS as a signal of success.");
 

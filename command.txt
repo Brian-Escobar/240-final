@@ -1,16 +1,17 @@
 
 b main
-b 18
-b electric.asm:112
-b electric.asm:126
-b 22
+b resistance
+b resistance.asm:113
+b resistance.asm:122
+b driver.cpp:18
 r
-p/x $rsp
+x/1xg $rbp
+c
+p/d ($rbp - $rsp)/8 + 1
+c
+xx.xx
+yy.yy
+p/lf $xmm10.v2_int64[0]
 c
 x/8xg $rsp
 c
-p/f $xmm15.v2_int64[0]
-c
-x/xg $rsp
-c
-p/f electric_
