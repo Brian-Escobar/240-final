@@ -14,7 +14,7 @@ extern "C" double electric();
 int main() {
   double electric_ = 0.0;
 
-  printf("Welcome to the Electric Power Program by Luis Alvarado. \n");
+  printf("Welcome to the Electric Power Program by Brian Escobar. \n");
 
   electric_ = electric();
 
