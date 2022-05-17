@@ -1,0 +1,15 @@
+b main
+b 18
+b electric.asm:112
+b electric.asm:126
+b 22
+r
+p/x $rsp
+c
+x/8xg $rsp
+c
+p/f $xmm15.v2_int64[0]
+c
+x/xg $rsp
+c
+p/f electric_
