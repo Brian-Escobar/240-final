@@ -1,6 +1,6 @@
 #!/bin/gdb
 
-#Auth Luis Alvarado
+#Auth Brian escobar
 #Program name: final
 
 #clear any previously complied outputs
@@ -20,6 +20,6 @@ echo "Link the two .o files"
 g++ -m64 -o final.out driver.o electric.o -fno-pie -no-pie -std=c++17 -g
 
 echo "Run the  Program"
-gdb ./final.out 
+gdb ./final.out
 
 echo "The bash script file is now closing"

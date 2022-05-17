@@ -1,8 +1,8 @@
 
 //Author Information:
-//Author: Luis Alvarado
-//Email: luisalvarado@csu.fullerton.edu
-//Section: CPSC 240-07
+//Author: Brian Escobar
+//Email: brianescobar523@csu.fullerton.edu
+//Section: CPSC 240-09
 //Program Information:
 //Program Name: Final
 //==============================================================================
